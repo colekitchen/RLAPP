@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <main className="bg-rl-app-bg text-white min-h-screen">
-      <div className="flex min-h-screen flex-col px-6 py-10">
+      <div className="flex min-h-screen flex-col px-6 py-10 bg-rl-app-bg">
         <div className="flex justify-center mt-80 tracking-wide">
           <Image
             src={title.image}
