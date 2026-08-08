@@ -4,21 +4,22 @@ import {ranks} from "../data/ranks";
 
 export default function Home() {
 
-  const title = {name: "Title", image: "/ranks/Title.png"};
+  const title = {name: "Title", image: "/Titles/Title.png"};
 
   return (
     <main className="bg-rl-app-bg text-white min-h-screen">
       <div className="flex min-h-screen flex-col px-6 py-10 bg-rl-app-bg">
-        <div className="flex justify-center mt-80 tracking-wide">
+        <div className="flex justify-center tracking-wide">
           <Image
             src={title.image}
             alt={title.name}
             width={600}
             height={400}
+            loading="eager"
             />
         </div>
 
-        <div className="mt-100 flex items-center">
+        <div className="mt-20 flex items-center">
           <section className="grid w-full grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-6">
             {ranks.map((rank) => (
               <Link
