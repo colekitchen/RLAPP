@@ -1,13 +1,35 @@
 import Image from "next/image";
-import Link from "next/link";
 import {ranks} from "../../../data/ranks";
 import VideoCard from "../../../components/VideoCard";
+import { db } from "../../../db";
+import { videos } from "../../../db/schema";
+import { eq, and } from "drizzle-orm";
 
 export default async function Page({params}) {
     const {slug} = await params;
     const currentRank = ranks.find(rank => rank.slug === slug);
-    const gameSense = {name:"Game Sense", image:"/Titles/sense6.png"}
+    const gameSense = {name:"Game Sense", image:"/Titles/game_sense1.png"}
     const mechanics = {name:"Mechanics", image:"/Titles/mechs_test.png"}
+
+    const gameSenseVideos = await db
+        .select()
+        .from(videos)
+        .where(
+            and(
+                eq(videos.rank, slug), 
+                eq(videos.category, "game sense")
+            )
+        );
+
+    const mechanicsVideos = await db
+        .select()
+        .from(videos)
+        .where(
+            and(
+                eq(videos.rank, slug), 
+                eq(videos.category, "mechanics")
+            )
+        );
 
     return (
         <main className="bg-rl-app-bg min-h-screen text-white">
@@ -32,11 +54,16 @@ export default async function Page({params}) {
                         </div>
                         
                         <div className="mt-10">
-                            <VideoCard
-                            title={`${currentRank.name} Example`}
-                            channel="Rocket League Helper"
-                            thumbnail={currentRank.image}
-                        />
+                            <section className="flex flex-col gap-10">
+                                {gameSenseVideos.map(video=> (
+                                    <VideoCard
+                                        key={video.id}
+                                        title={video.title}
+                                        channel={video.channel}
+                                        youtubeId={video.youtubeId}
+                                    />
+                                ))}
+                            </section>
                         </div>
                     </div>
             
@@ -51,11 +78,16 @@ export default async function Page({params}) {
                         </div>
                         
                         <div className="mt-10">
-                            <VideoCard
-                            title={`${currentRank.name} Example`}
-                            channel="Rocket League Helper"
-                            thumbnail={currentRank.image}
-                        />
+                            <section className="flex flex-col gap-10">
+                                {mechanicsVideos.map(video=> (
+                                    <VideoCard
+                                        key={video.id}
+                                        title={video.title}
+                                        channel={video.channel}
+                                        youtubeId={video.youtubeId}
+                                    />
+                                ))}
+                            </section>
                         </div>
                     </div>
                     
