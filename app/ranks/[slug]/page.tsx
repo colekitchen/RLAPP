@@ -54,7 +54,7 @@ export default async function Page({params}) {
                         </div>
                         
                         <div className="mt-10">
-                            <section className="flex flex-col gap-10">
+                            <section className="flex flex-col gap-20">
                                 {gameSenseVideos.map(video=> (
                                     <VideoCard
                                         key={video.id}
@@ -78,7 +78,7 @@ export default async function Page({params}) {
                         </div>
                         
                         <div className="mt-10">
-                            <section className="flex flex-col gap-10">
+                            <section className="flex flex-col gap-20">
                                 {mechanicsVideos.map(video=> (
                                     <VideoCard
                                         key={video.id}

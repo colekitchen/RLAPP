@@ -18,7 +18,7 @@ export default function VideoCard({title, channel, youtubeId}: VideoCardProps) {
             >
                 <div className="flex relative aspect-video w-full items-center justify-center">
                     <Image
-                        src={`https://i.ytimg.com/vi/${youtubeId}/mqdefault.jpg`}
+                        src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
                         alt={title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 50vw"
