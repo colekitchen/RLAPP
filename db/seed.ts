@@ -1,6 +1,7 @@
 import { db } from "./index";
 import { videos } from "./schema";
 
+// Seeding Database
 async function seed() {
 
     const videoData = [
