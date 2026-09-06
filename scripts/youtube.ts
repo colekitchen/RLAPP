@@ -24,9 +24,7 @@ async function ask(rank: string, category: string) {
         throw new Error("YOUTUBE_API_KEY is not defined");
     }
 
-    // --------------------------------------------------
-    // 1. Search YouTube
-    // --------------------------------------------------
+   // Search
 
     const searchParams = new URLSearchParams({
         part: "snippet",
@@ -57,9 +55,7 @@ async function ask(rank: string, category: string) {
             video.snippet?.publishedAt
     );
 
-    // --------------------------------------------------
-    // 2. Get duration for the 50 videos
-    // --------------------------------------------------
+    // Get length for filtering
 
     const videoIds = searchResults.map(
         (video: any) => video.id.videoId
@@ -89,10 +85,6 @@ async function ask(rank: string, category: string) {
 
     const detailsData = await detailsResponse.json();
 
-    // --------------------------------------------------
-    // 3. Match duration information to each search result
-    // --------------------------------------------------
-
     const durationMap = new Map<string, number>();
 
     for (const video of detailsData.items) {
@@ -103,9 +95,7 @@ async function ask(rank: string, category: string) {
         durationMap.set(video.id, duration);
     }
 
-    // --------------------------------------------------
-    // 4. Remove videos that are 3 minutes or shorter
-    // --------------------------------------------------
+    // Remove youtube shorts
 
     const filtered = searchResults.filter(
         (video: any) => {
@@ -120,23 +110,13 @@ async function ask(rank: string, category: string) {
         }
     );
 
-    // --------------------------------------------------
-    // 5. Shuffle the remaining videos
-    // --------------------------------------------------
-
     const shuffled = [...filtered].sort(
         () => Math.random() - 0.5
     );
 
-    // --------------------------------------------------
-    // 6. Keep only 20
-    // --------------------------------------------------
+    // Limit to 20 videos
 
     const selected = shuffled.slice(0, 20);
-
-    // --------------------------------------------------
-    // 7. Convert YouTube data into our database shape
-    // --------------------------------------------------
 
     const videoData = selected.map((video: any) => ({
         rank,
@@ -147,9 +127,7 @@ async function ask(rank: string, category: string) {
         publishedAt: new Date(video.snippet.publishedAt),
     }));
 
-    // --------------------------------------------------
-    // 8. Insert into PostgreSQL
-    // --------------------------------------------------
+    // Add to database
 
     if (videoData.length > 0) {
         await db
