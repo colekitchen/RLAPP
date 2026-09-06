@@ -1,3 +1,4 @@
+
 CREATE TABLE "videos" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"youtube_id" text NOT NULL,

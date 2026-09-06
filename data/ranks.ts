@@ -1,3 +1,5 @@
+// Ranks 
+
 export type Rank = {
     name: string;
     slug: string;
